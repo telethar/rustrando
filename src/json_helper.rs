@@ -29,8 +29,8 @@ pub fn load (json_data: &str) -> HashMap<Uuid, map_element::MapElement> {
         let pos = egui::Pos2::new(loc.x.as_f64().unwrap() as f32, loc.y.as_f64().unwrap() as f32);
 
         let item = MapElement {
-            loc_name: loc.loc_name,
             pos: pos,
+            size: None,
             kind: str_to_kind(&loc.kind),
             id: Uuid::new_v4(),
             checked: false
@@ -42,8 +42,8 @@ pub fn load (json_data: &str) -> HashMap<Uuid, map_element::MapElement> {
         let pos = egui::Pos2::new(loc.x.as_f64().unwrap() as f32 + 750.0, loc.y.as_f64().unwrap() as f32);
 
         let item = map_element::MapElement {
-            loc_name: loc.loc_name,
             pos: pos,
+            size: None,
             kind: str_to_kind(&loc.kind),
             id: Uuid::new_v4(),
             checked: false

@@ -1,16 +1,17 @@
-use eframe::egui::{self, Pos2};
+use eframe::egui::{self, Pos2, Vec2};
 use crate::egui::ImageSource;
 use uuid::Uuid;
 
-#[derive(Debug, Clone, PartialEq, Eq)]
+#[derive(Debug, Copy, Clone, PartialEq, Eq)]
 pub struct MapElement {
-    pub loc_name: String,
     pub pos: Pos2,
+    pub size: Option<Vec2>,
     pub kind: MapElementKind,
     pub id: Uuid,
     pub checked: bool
 }
 
+#[allow(unused)]
 #[derive(Debug, Copy, Clone, PartialEq, Eq)]
 pub enum MapElementKind {
     ENTRANCE,
@@ -103,11 +104,35 @@ pub enum MapElementKind {
     POWDER,
     BIGKEY,
     SMALLKEY,
+    BOMBOSTABLET,
+    ETHERTABLET,
+    BOTTLEMERCHANT,
+    DESERTLEDGE,
+    FLOATINGISLAND,
+    HOBO,
+    KINGZORA,
+    ZORALEDGE,
+    LAKEHYLIAISLAND,
+    PED,
+    MAZERACE,
+    MUSHROOM,
+    OLDMAN,
+    PURPLECHEST,
+    SPECROCK,
+    SUNKENTREASURE,
+    BUMPERCAVELEDGE,
+    CATFISH,
+    DIGGAME,
+    STUMPY,
+    FLUTESPOT,
+    PYRAMID,
     BLANK
 }
 
+
+#[allow(unused)]
 #[derive(Debug, Copy, Clone, PartialEq, Eq)]
-enum MapElementCategory {
+pub enum MapElementCategory {
     HC,
     EP,
     DP,
@@ -272,7 +297,7 @@ pub fn str_to_kind(kind: &str) -> MapElementKind {
         "POWDER" => MapElementKind::POWDER,
         "BIGKEY" => MapElementKind::BIGKEY,
         "SMALLKEY" => MapElementKind::SMALLKEY,
-        "BLACK" => MapElementKind::BLANK,
+        "BLANK" => MapElementKind::BLANK,
         _ => panic!("Unrecognized icon.")
     }
 }
@@ -370,11 +395,33 @@ pub fn kind_to_str(kind: &MapElementKind) -> &str {
         MapElementKind::POWDER => "POWDER",
         MapElementKind::BIGKEY => "BIGKEY",
         MapElementKind::SMALLKEY => "SMALLKEY",
-        MapElementKind::BLANK => "BLANK"
+        MapElementKind::BLANK => "BLANK",
+        MapElementKind::BOMBOSTABLET => "BOMBOSTABLET",
+        MapElementKind::ETHERTABLET => "ETHERTABLET",
+        MapElementKind::BOTTLEMERCHANT => "BOTTLEMERCHANT",
+        MapElementKind::DESERTLEDGE => "DESERTLEDGE",
+        MapElementKind::FLOATINGISLAND => "FLOATINGISLAND",
+        MapElementKind::HOBO => "HOBO",
+        MapElementKind::KINGZORA => "KINGZORA",
+        MapElementKind::ZORALEDGE => "ZORALEDGE",
+        MapElementKind::LAKEHYLIAISLAND => "LAKEHYLIAISLAND",
+        MapElementKind::PED => "PED",
+        MapElementKind::MAZERACE => "MAZERACE",
+        MapElementKind::MUSHROOM => "MUSHROOM",
+        MapElementKind::OLDMAN => "OLDMAN",
+        MapElementKind::PURPLECHEST => "PURPLECHEST",
+        MapElementKind::SPECROCK => "SPECROCK",
+        MapElementKind::SUNKENTREASURE => "SUNKENTREASURE",
+        MapElementKind::BUMPERCAVELEDGE => "BUMPERCAVELEDGE",
+        MapElementKind::CATFISH => "CATFISH",
+        MapElementKind::DIGGAME => "DIGGAME",
+        MapElementKind::STUMPY => "STUMPY",
+        MapElementKind::FLUTESPOT => "FLUTESPOT",
+        MapElementKind::PYRAMID => "PYRAMID",
     }
 }
 
-pub fn kind_to_source(kind: &MapElementKind) -> ImageSource {
+pub fn kind_to_source(kind: MapElementKind) -> ImageSource<'static> {
     match kind {
         MapElementKind::ENTRANCE => egui::include_image!("../assets/entrance.png"),
         MapElementKind::ITEM => egui::include_image!("../assets/item.png"),
@@ -466,10 +513,33 @@ pub fn kind_to_source(kind: &MapElementKind) -> ImageSource {
         MapElementKind::POWDER => egui::include_image!("../assets/icons/items/powder.png"),
         MapElementKind::BIGKEY => egui::include_image!("../assets/icons/items/bigkey.png"),
         MapElementKind::SMALLKEY => egui::include_image!("../assets/icons/items/smallkey.png"),
-        MapElementKind::BLANK => egui::include_image!("../assets/icons/blank.png")
+        MapElementKind::BLANK => egui::include_image!("../assets/icons/blank.png"),
+        MapElementKind::BOMBOSTABLET => egui::include_image!("../assets/item.png"),
+        MapElementKind::ETHERTABLET => egui::include_image!("../assets/item.png"),
+        MapElementKind::BOTTLEMERCHANT => egui::include_image!("../assets/item.png"),
+        MapElementKind::DESERTLEDGE => egui::include_image!("../assets/item.png"),
+        MapElementKind::FLOATINGISLAND => egui::include_image!("../assets/item.png"),
+        MapElementKind::HOBO => egui::include_image!("../assets/item.png"),
+        MapElementKind::KINGZORA => egui::include_image!("../assets/item.png"),
+        MapElementKind::ZORALEDGE => egui::include_image!("../assets/item.png"),
+        MapElementKind::LAKEHYLIAISLAND => egui::include_image!("../assets/item.png"),
+        MapElementKind::PED => egui::include_image!("../assets/item.png"),
+        MapElementKind::MAZERACE => egui::include_image!("../assets/item.png"),
+        MapElementKind::MUSHROOM => egui::include_image!("../assets/item.png"),
+        MapElementKind::OLDMAN => egui::include_image!("../assets/item.png"),
+        MapElementKind::PURPLECHEST => egui::include_image!("../assets/item.png"),
+        MapElementKind::SPECROCK => egui::include_image!("../assets/item.png"),
+        MapElementKind::SUNKENTREASURE => egui::include_image!("../assets/item.png"),
+        MapElementKind::BUMPERCAVELEDGE => egui::include_image!("../assets/item.png"),
+        MapElementKind::CATFISH => egui::include_image!("../assets/item.png"),
+        MapElementKind::DIGGAME => egui::include_image!("../assets/item.png"),
+        MapElementKind::STUMPY => egui::include_image!("../assets/item.png"),
+        MapElementKind::FLUTESPOT => egui::include_image!("../assets/item.png"),
+        MapElementKind::PYRAMID => egui::include_image!("../assets/item.png"),
     }
 }
 
+#[allow(unused)]
 pub fn kind_to_category(kind: &MapElementKind) -> MapElementCategory {
     match kind {
         MapElementKind::ENTRANCE => MapElementCategory::BLANK,
@@ -563,5 +633,41 @@ pub fn kind_to_category(kind: &MapElementKind) -> MapElementCategory {
         MapElementKind::BIGKEY => MapElementCategory::BIGKEY,
         MapElementKind::SMALLKEY => MapElementCategory::SMALLKEY,
         MapElementKind::BLANK => MapElementCategory::BLANK,
+        MapElementKind::BOMBOSTABLET => MapElementCategory::BLANK,
+        MapElementKind::ETHERTABLET => MapElementCategory::BLANK,
+        MapElementKind::BOTTLEMERCHANT => MapElementCategory::BLANK,
+        MapElementKind::DESERTLEDGE => MapElementCategory::BLANK,
+        MapElementKind::FLOATINGISLAND => MapElementCategory::BLANK,
+        MapElementKind::HOBO => MapElementCategory::BLANK,
+        MapElementKind::KINGZORA => MapElementCategory::BLANK,
+        MapElementKind::ZORALEDGE => MapElementCategory::BLANK,
+        MapElementKind::LAKEHYLIAISLAND => MapElementCategory::BLANK,
+        MapElementKind::PED => MapElementCategory::BLANK,
+        MapElementKind::MAZERACE => MapElementCategory::BLANK,
+        MapElementKind::MUSHROOM => MapElementCategory::BLANK,
+        MapElementKind::OLDMAN => MapElementCategory::BLANK,
+        MapElementKind::PURPLECHEST => MapElementCategory::BLANK,
+        MapElementKind::SPECROCK => MapElementCategory::BLANK,
+        MapElementKind::SUNKENTREASURE => MapElementCategory::BLANK,
+        MapElementKind::BUMPERCAVELEDGE => MapElementCategory::BLANK,
+        MapElementKind::CATFISH => MapElementCategory::BLANK,
+        MapElementKind::DIGGAME => MapElementCategory::BLANK,
+        MapElementKind::STUMPY => MapElementCategory::BLANK,
+        MapElementKind::FLUTESPOT => MapElementCategory::BLANK,
+        MapElementKind::PYRAMID => MapElementCategory::BLANK,
     }
+}
+
+pub fn map_element_kind_to_map_element(kind: MapElementKind) -> MapElement {
+    return MapElement {
+        pos: Pos2::new(0.0, 0.0),
+        size: None, 
+        kind: kind,
+        id: Uuid::new_v4(),
+        checked: false
+    }
+}
+
+pub fn kind_is_dragable(kind: MapElementKind) -> bool {
+    return kind != MapElementKind::ENTRANCE && kind != MapElementKind::ITEM
 }
